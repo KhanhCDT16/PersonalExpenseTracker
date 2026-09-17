@@ -1,4 +1,4 @@
-# Phase 2 — Database Design
+# ExpenseTracker — Phase 2 — Database Design
 
 ## 1. Entity-relationship diagram
 

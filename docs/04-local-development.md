@@ -1,4 +1,4 @@
-# Local Development
+# ExpenseTracker — Local Development
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@
 From the repository root:
 
 ```powershell
-dotnet restore FinancialTracker.sln
+dotnet restore ExpenseTracker.sln
 dotnet tool restore
 dotnet ef database update --project PersonalExpenseTracker.csproj --startup-project PersonalExpenseTracker.csproj
 dotnet run --project PersonalExpenseTracker.csproj
@@ -19,10 +19,10 @@ dotnet run --project PersonalExpenseTracker.csproj
 
 Open the HTTPS or HTTP address printed by ASP.NET Core. Swagger is available at `/swagger` only in Development.
 
-The default connection string targets `(localdb)\MSSQLLocalDB`. If LocalDB is unavailable, override it without modifying committed files:
+The default connection string targets the `ExpenseTracker` database on `(localdb)\MSSQLLocalDB`. If LocalDB is unavailable, override it without modifying committed files:
 
 ```powershell
-$env:ConnectionStrings__DefaultConnection = "Server=.\SQLEXPRESS;Database=FinancialTracker;Trusted_Connection=True;TrustServerCertificate=True"
+$env:ConnectionStrings__DefaultConnection = "Server=.\SQLEXPRESS;Database=ExpenseTracker;Trusted_Connection=True;TrustServerCertificate=True"
 dotnet ef database update --project PersonalExpenseTracker.csproj --startup-project PersonalExpenseTracker.csproj
 dotnet run --project PersonalExpenseTracker.csproj
 ```
@@ -44,7 +44,7 @@ Remove those environment variables after the account has been created. The boots
 ## Verification
 
 ```powershell
-dotnet build FinancialTracker.sln --configuration Release
+dotnet build ExpenseTracker.sln --configuration Release
 dotnet run --project tests/PersonalExpenseTracker.Tests --configuration Release
 ```
 

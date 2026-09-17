@@ -76,7 +76,7 @@ return failures.Count == 0 ? 0 : 1;
 
 static async Task ProtectedApiRejectsAnonymousRequests()
 {
-    using var factory = new FinancialTrackerFactory();
+    using var factory = new ExpenseTrackerFactory();
     await factory.InitializeDatabaseAsync();
     using var client = factory.CreateClient();
     var response = await client.GetAsync("/api/categories");
@@ -86,7 +86,7 @@ static async Task ProtectedApiRejectsAnonymousRequests()
 
 static async Task RegistrationEndpointRejectsInvalidInput()
 {
-    using var factory = new FinancialTrackerFactory();
+    using var factory = new ExpenseTrackerFactory();
     await factory.InitializeDatabaseAsync();
     using var client = factory.CreateClient();
     var response = await client.PostAsJsonAsync("/api/auth/register", new RegisterRequest
@@ -102,7 +102,7 @@ static async Task RegistrationEndpointRejectsInvalidInput()
 
 static async Task JwtAndOwnedCrudWorkflowSucceeds()
 {
-    using var factory = new FinancialTrackerFactory();
+    using var factory = new ExpenseTrackerFactory();
     await factory.InitializeDatabaseAsync();
     using var firstClient = factory.CreateClient();
     var firstToken = await RegisterAsync(firstClient, "first@example.test", "First User");

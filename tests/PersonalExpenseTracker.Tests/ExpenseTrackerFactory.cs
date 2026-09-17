@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using PersonalExpenseTracker.Data;
 
-public sealed class FinancialTrackerFactory : WebApplicationFactory<ApplicationDbContext>
+public sealed class ExpenseTrackerFactory : WebApplicationFactory<ApplicationDbContext>
 {
-    private readonly string _databaseName = $"FinancialTrackerTests-{Guid.NewGuid():N}";
+    private readonly string _databaseName = $"ExpenseTrackerTests-{Guid.NewGuid():N}";
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

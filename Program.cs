@@ -149,7 +149,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "FinancialTracker API",
+        Title = "ExpenseTracker API",
         Version = "v1",
         Description = "Authenticated API for personal finance management."
     });
@@ -180,7 +180,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "FinancialTracker API v1");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "ExpenseTracker API v1");
         options.RoutePrefix = "swagger";
     });
 }

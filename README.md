@@ -1,6 +1,6 @@
-# FinancialTracker
+# ExpenseTracker
 
-FinancialTracker is a multi-user personal-finance website and authenticated API built with ASP.NET Core MVC, .NET 10, Entity Framework Core, SQL Server, Identity, and JWT bearer authentication.
+ExpenseTracker is a multi-user personal-finance website and authenticated API built with ASP.NET Core MVC, .NET 10, Entity Framework Core, SQL Server, Identity, and JWT bearer authentication.
 
 ## Features
 
@@ -68,19 +68,19 @@ The result should show `State: Running`. See Microsoft's [SQL Server downloads](
 From the repository root, restore the solution, apply the checked-in migration, and start the website:
 
 ```powershell
-dotnet restore FinancialTracker.sln
+dotnet restore ExpenseTracker.sln
 dotnet tool restore
 dotnet ef database update --project PersonalExpenseTracker.csproj --startup-project PersonalExpenseTracker.csproj
 dotnet run --project PersonalExpenseTracker.csproj
 ```
 Open Browser -> Input http://localhost:5169
 
-The default database is `FinancialTracker` on `(localdb)\MSSQLLocalDB`. See [local development](docs/04-local-development.md) for connection overrides, administrator bootstrap, testing, and the fix for the old recursive `tests/bin` build error.
+The default database is `ExpenseTracker` on `(localdb)\MSSQLLocalDB`. See [local development](docs/04-local-development.md) for connection overrides, administrator bootstrap, testing, and the fix for the old recursive `tests/bin` build error.
 
 ## Verify
 
 ```powershell
-dotnet build FinancialTracker.sln --configuration Release
+dotnet build ExpenseTracker.sln --configuration Release
 dotnet run --project tests/PersonalExpenseTracker.Tests --configuration Release
 ```
 

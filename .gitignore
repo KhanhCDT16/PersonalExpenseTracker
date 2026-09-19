@@ -1,0 +1,8 @@
+bin/
+obj/
+.vs/
+App_Data/
+.azure/
+.packages/
+*.user
+*.suo

@@ -6,3 +6,29 @@ App_Data/
 .packages/
 *.user
 *.suo
+
+# Local and production secrets
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+appsettings.*.Local.json
+appsettings.Production.json
+secrets.json
+
+# Azure and Visual Studio publishing credentials
+Properties/PublishProfiles/
+*.publishsettings
+*.pubxml.user
+serviceDependencies*.json
+
+# Certificates, keys, and database exports
+*.pfx
+*.p12
+*.pem
+*.key
+*.cer
+*.mdf
+*.ldf
+*.bak
+*.bacpac

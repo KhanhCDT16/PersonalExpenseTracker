@@ -1,0 +1,44 @@
+@model TransactionListViewModel
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<div class="section-heading page-heading">
+    <div><p class="eyebrow">FINANCIAL RECORDS</p><h1>Transactions</h1><p class="muted">@Model.TotalCount record@(Model.TotalCount == 1 ? "" : "s") found.</p></div>
+    <a class="button" asp-action="Create">Add transaction</a>
+</div>
+
+<form method="get" class="filter-bar">
+    <div class="field filter-search"><label asp-for="Search">Search</label><input asp-for="Search" placeholder="Description or category" /></div>
+    <div class="field"><label asp-for="CategoryId">Category</label><select asp-for="CategoryId" asp-items="Model.Categories"><option value="">All categories</option></select></div>
+    <div class="field"><label asp-for="Type">Type</label><select asp-for="Type" asp-items="Html.GetEnumSelectList<TransactionType>()"><option value="">All types</option></select></div>
+    <div class="field"><label asp-for="DateFrom">From</label><input asp-for="DateFrom" type="date" /></div>
+    <div class="field"><label asp-for="DateTo">To</label><input asp-for="DateTo" type="date" /></div>
+    <button class="button button-secondary" type="submit">Apply</button><a asp-action="Index">Clear</a>
+</form>
+
+<section class="panel">
+    @if (Model.Transactions.Count == 0)
+    {
+        <div class="empty-state"><h2>No matching transactions</h2><p>Change the filters or add a transaction.</p></div>
+    }
+    else
+    {
+        <partial name="_TransactionTable" model="Model.Transactions" />
+    }
+</section>
+
+@if (Model.TotalPages > 1)
+{
+    <nav class="pagination" aria-label="Transaction pages">
+        @if (Model.Page > 1)
+        {
+            <a asp-all-route-data="@(new Dictionary<string, string?> { ["page"] = (Model.Page - 1).ToString(), ["search"] = Model.Search, ["categoryId"] = Model.CategoryId?.ToString(), ["type"] = Model.Type?.ToString(), ["dateFrom"] = Model.DateFrom?.ToString("yyyy-MM-dd"), ["dateTo"] = Model.DateTo?.ToString("yyyy-MM-dd") })">Previous</a>
+        }
+        <span>Page @Model.Page of @Model.TotalPages</span>
+        @if (Model.Page < Model.TotalPages)
+        {
+            <a asp-all-route-data="@(new Dictionary<string, string?> { ["page"] = (Model.Page + 1).ToString(), ["search"] = Model.Search, ["categoryId"] = Model.CategoryId?.ToString(), ["type"] = Model.Type?.ToString(), ["dateFrom"] = Model.DateFrom?.ToString("yyyy-MM-dd"), ["dateTo"] = Model.DateTo?.ToString("yyyy-MM-dd") })">Next</a>
+        }
+    </nav>
+}

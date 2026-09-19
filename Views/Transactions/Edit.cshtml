@@ -1,0 +1,9 @@
+@model PersonalExpenseTracker.Models.Transactions.TransactionFormViewModel
+@{ ViewData["Title"] = "Edit transaction"; }
+<div class="form-page">
+    <p class="eyebrow">UPDATE RECORD</p><h1>Edit transaction</h1>
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="panel form-panel">
+        <input asp-for="Id" type="hidden" /><partial name="_TransactionForm" model="Model" />
+        <div class="form-actions"><button class="button" type="submit">Save changes</button><a asp-action="Details" asp-route-id="@Model.Id">Cancel</a></div>
+    </form>
+</div>

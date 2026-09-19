@@ -1,0 +1,25 @@
+@model PersonalExpenseTracker.Models.Categories.CategoryFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+<div class="form-grid">
+    <div class="field">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Type"></label>
+        <select asp-for="Type" asp-items="Html.GetEnumSelectList<TransactionType>()"></select>
+        <span asp-validation-for="Type"></span>
+    </div>
+    <div class="field">
+        <label asp-for="ColorHex"></label>
+        <input asp-for="ColorHex" type="color" />
+        <span asp-validation-for="ColorHex"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Icon"></label>
+        <input asp-for="Icon" placeholder="Optional icon name" />
+        <span asp-validation-for="Icon"></span>
+    </div>
+</div>

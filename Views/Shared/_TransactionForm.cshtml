@@ -1,0 +1,32 @@
+@model PersonalExpenseTracker.Models.Transactions.TransactionFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+<div class="form-grid">
+    <div class="field">
+        <label asp-for="Type"></label>
+        <select asp-for="Type" asp-items="Html.GetEnumSelectList<TransactionType>()"></select>
+        <span asp-validation-for="Type"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" inputmode="decimal" />
+        <span asp-validation-for="Amount"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Date"></label>
+        <input asp-for="Date" type="date" />
+        <span asp-validation-for="Date"></span>
+    </div>
+    <div class="field">
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId" asp-items="Model.Categories">
+            <option value="0">Choose a category</option>
+        </select>
+        <span asp-validation-for="CategoryId"></span>
+    </div>
+    <div class="field field-full">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" rows="3" placeholder="Optional details"></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+</div>

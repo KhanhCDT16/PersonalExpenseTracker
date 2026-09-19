@@ -1,0 +1,23 @@
+@model IReadOnlyList<PersonalExpenseTracker.Models.Budgets.BudgetListItemViewModel>
+@{ ViewData["Title"] = "Budgets"; }
+<div class="section-heading page-heading"><div><p class="eyebrow">PLAN YOUR SPENDING</p><h1>Budgets</h1><p class="muted">Compare monthly limits with actual expenses.</p></div><a class="button" asp-action="Create">Create budget</a></div>
+@if (Model.Count == 0)
+{
+    <section class="panel empty-state"><h2>No budgets yet</h2><p>Create an overall or category budget for a month.</p></section>
+}
+else
+{
+    <div class="budget-grid">
+    @foreach (var budget in Model)
+    {
+        var stateClass = budget.IsExceeded ? "exceeded" : budget.IsWarning ? "warning" : "on-track";
+        <article class="panel budget-card @stateClass">
+            <div class="budget-heading"><div><span>@budget.Month.ToString("MMMM yyyy")</span><h2>@budget.CategoryName</h2></div><span class="budget-state">@(budget.IsExceeded ? "Exceeded" : budget.IsWarning ? "Warning" : "On track")</span></div>
+            <div class="budget-values"><strong>@budget.ActualSpending.ToString("C")</strong><span>of @budget.Amount.ToString("C")</span></div>
+            <div class="progress-track"><span style="width:@Math.Min(100, budget.UtilizationPercent).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)%"></span></div>
+            <p>@Math.Abs(budget.Remaining).ToString("C") @(budget.Remaining >= 0 ? "remaining" : "over budget") · @budget.UtilizationPercent.ToString("0.#")%</p>
+            <div class="category-actions"><a asp-action="Edit" asp-route-id="@budget.Id">Edit</a><form asp-action="Delete" asp-route-id="@budget.Id" method="post" onsubmit="return confirm('Delete this budget?');"><button type="submit" class="link-button danger-link">Delete</button></form></div>
+        </article>
+    }
+    </div>
+}

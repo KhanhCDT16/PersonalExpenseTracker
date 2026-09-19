@@ -1,0 +1,41 @@
+@model PersonalExpenseTracker.Models.Authentication.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="auth-shell">
+    <section class="auth-intro">
+        <p class="eyebrow">START BUILDING CLARITY</p>
+        <h1>Your finances, organized.</h1>
+        <p>Create one private workspace for transactions, budgets, goals, and reports.</p>
+    </section>
+
+    <form asp-action="Register" method="post" class="panel auth-card">
+        <h2>Create account</h2>
+        <p class="muted">All fields are required.</p>
+        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+        <div class="field">
+            <label asp-for="DisplayName"></label>
+            <input asp-for="DisplayName" autocomplete="name" autofocus />
+            <span asp-validation-for="DisplayName"></span>
+        </div>
+        <div class="field">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" autocomplete="email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="field">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" autocomplete="new-password" />
+            <span asp-validation-for="Password"></span>
+            <small>At least 12 characters with uppercase, lowercase, number, and symbol.</small>
+        </div>
+        <div class="field">
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" autocomplete="new-password" />
+            <span asp-validation-for="ConfirmPassword"></span>
+        </div>
+        <button class="button button-block" type="submit">Create account</button>
+        <p class="auth-switch">Already registered? <a asp-action="Login">Log in</a></p>
+    </form>
+</div>

@@ -1,0 +1,8 @@
+@model PersonalExpenseTracker.Models.Budgets.BudgetFormViewModel
+<div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+<div class="form-grid">
+    <div class="field"><label asp-for="Month"></label><input asp-for="Month" type="month" /><span asp-validation-for="Month"></span></div>
+    <div class="field"><label asp-for="CategoryId"></label><select asp-for="CategoryId" asp-items="Model.Categories"><option value="">Overall spending</option></select><span asp-validation-for="CategoryId"></span></div>
+    <div class="field"><label asp-for="Amount"></label><input asp-for="Amount" inputmode="decimal" /><span asp-validation-for="Amount"></span></div>
+    <div class="field"><label asp-for="WarningThresholdPercent"></label><input asp-for="WarningThresholdPercent" type="number" min="1" max="100" /><span asp-validation-for="WarningThresholdPercent"></span></div>
+</div>

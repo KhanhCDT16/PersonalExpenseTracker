@@ -1,0 +1,58 @@
+@model PersonalExpenseTracker.Models.Categories.CategoryListViewModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="section-heading page-heading">
+    <div>
+        <p class="eyebrow">ORGANIZE YOUR RECORDS</p>
+        <h1>Categories</h1>
+        <p class="muted">Use shared categories or add labels that fit your own finances.</p>
+    </div>
+    <a class="button" asp-action="Create">Add category</a>
+</div>
+
+@if (TempData["ErrorMessage"] is string errorMessage)
+{
+    <div class="alert error" role="alert">@errorMessage</div>
+}
+
+<section class="panel category-section">
+    <div class="section-heading"><h2>Your categories</h2></div>
+    @if (Model.PersonalCategories.Count == 0)
+    {
+        <div class="empty-state"><p>You have not created any personal categories.</p></div>
+    }
+    else
+    {
+        <div class="category-grid">
+        @foreach (var category in Model.PersonalCategories)
+        {
+            <article class="category-card">
+                <span class="category-swatch" style="background:@category.ColorHex"></span>
+                <div><strong>@category.Name</strong><span>@category.Type</span></div>
+                <div class="category-actions">
+                    <a asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@category.Id" method="post" onsubmit="return confirm('Delete this category?');">
+                        <button class="link-button danger-link" type="submit">Delete</button>
+                    </form>
+                </div>
+            </article>
+        }
+        </div>
+    }
+</section>
+
+<section class="panel category-section">
+    <div class="section-heading"><h2>Shared categories</h2></div>
+    <div class="category-grid">
+    @foreach (var category in Model.GlobalCategories)
+    {
+        <article class="category-card">
+            <span class="category-swatch" style="background:@category.ColorHex"></span>
+            <div><strong>@category.Name</strong><span>@category.Type</span></div>
+            <span class="badge">Global</span>
+        </article>
+    }
+    </div>
+</section>

@@ -1,0 +1,13 @@
+@model PersonalExpenseTracker.Models.Categories.CategoryFormViewModel
+@{
+    ViewData["Title"] = "Add category";
+}
+<div class="form-page">
+    <p class="eyebrow">PERSONAL CATEGORY</p>
+    <h1>Add category</h1>
+    <p class="muted">Create a label for your income or expenses.</p>
+    <form asp-action="Create" method="post" class="panel form-panel">
+        <partial name="_CategoryForm" model="Model" />
+        <div class="form-actions"><button class="button" type="submit">Create category</button><a asp-action="Index">Cancel</a></div>
+    </form>
+</div>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Personal Expense Tracker</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav container" aria-label="Main navigation">
+            <a class="brand" asp-controller="Home" asp-action="Index">ExpenseTracker</a>
+            <div class="nav-links">
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="Home" asp-action="Index">Dashboard</a>
+                    <a asp-controller="Transactions" asp-action="Index">Transactions</a>
+                    <a asp-controller="Categories" asp-action="Index">Categories</a>
+                    <a asp-controller="Budgets" asp-action="Index">Budgets</a>
+                    <a asp-controller="SavingGoals" asp-action="Index">Goals</a>
+                    <a asp-controller="Reports" asp-action="Index">Reports</a>
+                    <a asp-controller="Profile" asp-action="Index">Profile</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-area="Admin" asp-controller="Users" asp-action="Index">Admin</a>
+                    }
+                    <form asp-controller="Authentication" asp-action="Logout" method="post" class="nav-form">
+                        <button type="submit" class="nav-button">Log out</button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Authentication" asp-action="Login">Log in</a>
+                    <a class="button button-small" asp-controller="Authentication" asp-action="Register">Register</a>
+                }
+            </div>
+        </nav>
+    </header>
+
+    <main class="container page-content">
+        @if (TempData["StatusMessage"] is string statusMessage)
+        {
+            <div class="alert success" role="status">@statusMessage</div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">FinancialTracker · ASP.NET Core internship project</div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

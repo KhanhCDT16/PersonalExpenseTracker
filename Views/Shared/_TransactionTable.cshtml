@@ -1,0 +1,20 @@
+@model IReadOnlyList<PersonalExpenseTracker.Models.Transactions.TransactionListItemViewModel>
+
+<div class="table-wrap">
+    <table>
+        <thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Type</th><th class="number">Amount</th><th><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody>
+        @foreach (var entry in Model)
+        {
+            <tr>
+                <td>@entry.Date.ToString("dd MMM yyyy")</td>
+                <td><span class="inline-swatch" style="background:@entry.CategoryColor"></span><strong>@entry.CategoryName</strong></td>
+                <td>@(entry.Description ?? "—")</td>
+                <td><span class="badge @entry.Type.ToString().ToLowerInvariant()">@entry.Type</span></td>
+                <td class="number amount @entry.Type.ToString().ToLowerInvariant()">@(entry.Type == TransactionType.Expense ? "−" : "+")@entry.Amount.ToString("C")</td>
+                <td class="actions"><a asp-controller="Transactions" asp-action="Details" asp-route-id="@entry.Id">View</a><a asp-controller="Transactions" asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

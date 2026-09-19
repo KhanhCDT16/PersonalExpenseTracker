@@ -1,0 +1,9 @@
+@model PersonalExpenseTracker.Models.Transactions.TransactionDetailsViewModel
+@{ ViewData["Title"] = "Delete transaction"; }
+<div class="form-page">
+    <p class="eyebrow">CONFIRM DELETION</p><h1>Delete transaction?</h1><p class="muted">This action cannot be undone.</p>
+    <section class="panel delete-panel">
+        <dl class="details-list"><div><dt>Date</dt><dd>@Model.Date.ToString("dd MMMM yyyy")</dd></div><div><dt>Category</dt><dd>@Model.CategoryName</dd></div><div><dt>Type</dt><dd>@Model.Type</dd></div><div><dt>Amount</dt><dd>@Model.Amount.ToString("C")</dd></div><div><dt>Description</dt><dd>@(Model.Description ?? "—")</dd></div></dl>
+        <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="form-actions"><button class="button button-danger" type="submit">Delete transaction</button><a asp-action="Details" asp-route-id="@Model.Id">Cancel</a></form>
+    </section>
+</div>

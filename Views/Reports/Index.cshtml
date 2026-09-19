@@ -1,0 +1,19 @@
+@using System.Text.Json
+@model PersonalExpenseTracker.Models.Reports.ReportViewModel
+@{ ViewData["Title"] = "Reports"; }
+<div class="section-heading page-heading"><div><p class="eyebrow">FINANCIAL INSIGHTS</p><h1>Reports</h1><p class="muted">Income, expenses, and trends across your selected period.</p></div><form method="get" class="report-period"><label for="months">Period</label><select id="months" name="months" onchange="this.form.submit()"><option value="3" selected="@(Model.Months == 3)">3 months</option><option value="6" selected="@(Model.Months == 6)">6 months</option><option value="12" selected="@(Model.Months == 12)">12 months</option><option value="24" selected="@(Model.Months == 24)">24 months</option></select></form></div>
+<section class="summary-grid" aria-label="Report summary"><article class="summary-card income"><span>Income</span><strong>@Model.TotalIncome.ToString("C")</strong></article><article class="summary-card expense"><span>Expenses</span><strong>@Model.TotalExpenses.ToString("C")</strong></article><article class="summary-card balance"><span>Balance</span><strong>@Model.Balance.ToString("C")</strong></article></section>
+<div class="report-grid"><section class="panel chart-panel"><div class="section-heading"><h2>Monthly trend</h2></div><div class="chart-wrap"><canvas id="trendChart" aria-label="Monthly income and expense bar chart"></canvas></div></section><section class="panel chart-panel"><div class="section-heading"><h2>Expenses by category</h2></div><div class="chart-wrap"><canvas id="categoryChart" aria-label="Expense category pie chart"></canvas></div></section></div>
+<section class="panel report-table"><div class="section-heading"><h2>Category breakdown</h2></div><div class="table-wrap"><table><thead><tr><th>Category</th><th class="number">Amount</th><th class="number">Share</th></tr></thead><tbody>@foreach (var item in Model.ExpensesByCategory) { <tr><td><span class="inline-swatch" style="background:@item.Color"></span>@item.Category</td><td class="number">@item.Amount.ToString("C")</td><td class="number">@item.Percentage.ToString("0.#")%</td></tr> }</tbody></table></div></section>
+@section Scripts {
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+(() => {
+  if (typeof Chart === 'undefined') return;
+  const trends = @Html.Raw(JsonSerializer.Serialize(Model.MonthlyTrends, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
+  const categories = @Html.Raw(JsonSerializer.Serialize(Model.ExpensesByCategory, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
+  new Chart(document.getElementById('trendChart'), { type: 'bar', data: { labels: trends.map(x => x.month), datasets: [{ label: 'Income', data: trends.map(x => x.income), backgroundColor: '#157347' }, { label: 'Expenses', data: trends.map(x => x.expenses), backgroundColor: '#b53d3d' }] }, options: { responsive: true, maintainAspectRatio: false } });
+  new Chart(document.getElementById('categoryChart'), { type: 'doughnut', data: { labels: categories.map(x => x.category), datasets: [{ data: categories.map(x => x.amount), backgroundColor: categories.map(x => x.color) }] }, options: { responsive: true, maintainAspectRatio: false } });
+})();
+</script>
+}

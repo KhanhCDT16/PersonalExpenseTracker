@@ -1,0 +1,85 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="hero">
+    <div>
+        <p class="eyebrow">PERSONAL FINANCE OVERVIEW</p>
+        <h1>Know where your money goes.</h1>
+        <p>Record transactions, protect your monthly budget, and keep saving goals moving.</p>
+    </div>
+    <a class="button" asp-controller="Transactions" asp-action="Create">Add transaction</a>
+</section>
+
+<section class="summary-grid" aria-label="Financial summary">
+    <article class="summary-card income">
+        <span>Income · @Model.PeriodLabel</span>
+        <strong>@Model.TotalIncome.ToString("C")</strong>
+    </article>
+    <article class="summary-card expense">
+        <span>Expenses · @Model.PeriodLabel</span>
+        <strong>@Model.TotalExpenses.ToString("C")</strong>
+    </article>
+    <article class="summary-card balance">
+        <span>Balance · @Model.PeriodLabel</span>
+        <strong>@Model.Balance.ToString("C")</strong>
+    </article>
+</section>
+
+<div class="dashboard-grid">
+    <section class="panel">
+        <div class="section-heading"><div><p class="eyebrow">BUDGET HEALTH</p><h2>This month</h2></div><a asp-controller="Budgets" asp-action="Index">View budgets</a></div>
+        @if (Model.Budgets.Count == 0)
+        {
+            <div class="empty-state compact"><p>No budget set for this month.</p><a asp-controller="Budgets" asp-action="Create">Create one</a></div>
+        }
+        else
+        {
+            <div class="dashboard-list">
+            @foreach (var budget in Model.Budgets)
+            {
+                <div><div><strong>@budget.CategoryName</strong><span>@budget.ActualSpending.ToString("C") of @budget.Amount.ToString("C")</span></div><span class="badge @(budget.IsExceeded ? "expense" : "income")">@budget.UtilizationPercent.ToString("0")%</span></div>
+            }
+            </div>
+        }
+    </section>
+    <section class="panel">
+        <div class="section-heading"><div><p class="eyebrow">SAVING PROGRESS</p><h2>Goals</h2></div><a asp-controller="SavingGoals" asp-action="Index">View goals</a></div>
+        @if (Model.SavingGoals.Count == 0)
+        {
+            <div class="empty-state compact"><p>No active saving goals.</p><a asp-controller="SavingGoals" asp-action="Create">Create one</a></div>
+        }
+        else
+        {
+            <div class="dashboard-list">
+            @foreach (var goal in Model.SavingGoals)
+            {
+                <div><div><strong>@goal.Name</strong><span>@goal.SavedAmount.ToString("C") of @goal.TargetAmount.ToString("C")</span></div><span class="badge income">@goal.ProgressPercent.ToString("0")%</span></div>
+            }
+            </div>
+        }
+    </section>
+</div>
+
+<section class="panel">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">LATEST ACTIVITY</p>
+            <h2>Recent transactions</h2>
+        </div>
+        <a asp-controller="Transactions" asp-action="Index">View all</a>
+    </div>
+
+    @if (Model.RecentTransactions.Count == 0)
+    {
+        <div class="empty-state">
+            <h3>No transactions yet</h3>
+            <p>Add your first income or expense to see your summary.</p>
+        </div>
+    }
+    else
+    {
+        <partial name="_TransactionTable" model="Model.RecentTransactions" />
+    }
+</section>

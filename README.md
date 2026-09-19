@@ -83,16 +83,3 @@ dotnet build FinancialTracker.sln --configuration Release
 dotnet run --project tests/PersonalExpenseTracker.Tests --configuration Release
 ```
 
-## Documentation
-
-- [Roadmap](docs/ROADMAP.md)
-- [Project planning](docs/01-project-planning.md)
-- [Database design and ERD](docs/02-database-design.md)
-- [Hosting and cost plan](docs/03-hosting-and-cost.md)
-- [Local development](docs/04-local-development.md)
-- [Azure deployment](docs/05-deployment.md)
-- [Internship report draft](FINAL_INTERNSHIP_REPORT.md)
-- [Presentation outline](PRESENTATION_OUTLINE.md)
-- [Personal details still needed](REPORT_DETAILS.md)
-
-Do not commit production connection strings, JWT keys, or administrator passwords. Use platform secrets or environment variables.
